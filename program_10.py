@@ -85,9 +85,8 @@ def Calc7Q(Qvalues):
        that year.  The routine returns the 7Q (7-day low flow) value
        for the given data array."""
        
-    Qvalues = Qvalues.dropna()
-    val7Q =  min(Qvalues.rolling(7).mean()).min()   
-    
+    Qvalues=Qvalues.dropna()
+    val7Q=(Qvalues.rolling(7).mean()).min() 
     return ( val7Q )
 
 def CalcExceed3TimesMedian(Qvalues):
