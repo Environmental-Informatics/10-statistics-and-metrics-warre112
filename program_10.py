@@ -72,16 +72,8 @@ def CalcRBindex(Qvalues):
        values of day-to-day changes in daily discharge volumes
        (pathlength) by total discharge volumes for each year. The
        routine returns the RBindex value for the given data array."""
-    tester = len(Qvalues.dropna()) 
-    a=0
-    if (tester > 0): 
-        Qvalues = Qvalues.dropna() 
-        for i in range(1,len(Qvalues.dropna())):
-            a=a+abs(Qvalues.iloc[i-1]-Qvalues.iloc[i]) 
-            
-        RBindex=a/sum(Qvalues.dropna()) 
-    else:
-        RBindex = np.nan 
+    a=Qvalues.dropna()
+    RBindex = ((abs(a.diff().dropna())).sum())/(a.sum())
     return ( RBindex )
 
 def Calc7Q(Qvalues):
@@ -94,7 +86,7 @@ def Calc7Q(Qvalues):
        for the given data array."""
        
     Qvalues = Qvalues.dropna()
-    val7Q =  min(Qvalues.resample('7D').mean())    
+    val7Q =  min(Qvalues.rolling(7).mean()).min()   
     
     return ( val7Q )
 
