@@ -125,7 +125,7 @@ def GetMonthlyStatistics(DataDF):
     """This function calculates monthly descriptive statistics and metrics 
     for the given streamflow time series.  Values are returned as a dataframe
     of monthly values for each year."""
-    colnames = ['site_no','Mean Flow','Coeff Var','TQmean','R-B Index']
+    colnames = ['site_no','Mean Flow','Coeff Var','Tqmean','R-B Index']
     monthdata= DataDF.resample('MS').mean() 
 
     MoDataDF = pd.DataFrame(0, index=monthdata.index, columns=colnames)
