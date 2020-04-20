@@ -159,7 +159,7 @@ def GetMonthlyAverages(MoDataDF):
     statistics and metrics.  The routine returns an array of mean values 
     for each metric in the original dataframe."""
    
-    colNames=['site_no','Mean Flow','Coeff Var','TQmean','R-B Index']
+    colNames=['site_no','Mean Flow','Coeff Var','Tqmean','R-B Index']
     MonthlyAverages=pd.DataFrame(0,index=range(1,13),columns=colNames)
     
     
