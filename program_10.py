@@ -174,7 +174,7 @@ def GetMonthlyAverages(MoDataDF):
     for (n,m) in index:
         MonthlyAverages.iloc[n,2]=MoDataDF['Coeff Var'][m::12].mean() #mean every 12 months 
     for (n,m) in index:
-        MonthlyAverages.iloc[n,3]=MoDataDF['TQmean'][m::12].mean() #mean every 12 months 
+        MonthlyAverages.iloc[n,3]=MoDataDF['Tqmean'][m::12].mean() #mean every 12 months 
     for (n,m) in index:
         MonthlyAverages.iloc[n,4]=MoDataDF['R-B Index'][m::12].mean() #mean every 12 months 
 
