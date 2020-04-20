@@ -105,17 +105,17 @@ def GetAnnualStatistics(DataDF):
     the given streamflow time series.  Values are retuned as a dataframe of
     annual values for each water year.  Water year, as defined by the USGS,
     starts on October 1."""
-    colnames = ['site_no','Mean Flow', 'Peak Flow','Median','Coeff Var', 'Skew','TQmean','R-B Index','7Q','3xMedian']
+    colnames = ['site_no','Mean Flow', 'Peak Flow','Median Flow','Coeff Var', 'Skew','Tqmean','R-B Index','7Q','3xMedian']
     annualdata=DataDF.resample('AS-OCT').mean() #resample 
     WYDataDF = pd.DataFrame(0, index=annualdata.index,columns=colnames) 
    
     WYDataDF['site_no']=DataDF.resample('AS-OCT')['site_no'].mean()
     WYDataDF['Mean Flow']=DataDF.resample('AS-OCT')['Discharge'].mean()
     WYDataDF['Peak Flow']=DataDF.resample('AS-OCT')['Discharge'].max()
-    WYDataDF['Median']=DataDF.resample('AS-OCT')['Discharge'].median()
+    WYDataDF['Median Flow']=DataDF.resample('AS-OCT')['Discharge'].median()
     WYDataDF['Coeff Var']=(DataDF.resample('AS-OCT')['Discharge'].std()/DataDF.resample('AS-OCT')['Discharge'].mean())*100
     WYDataDF['Skew']=DataDF['Discharge'].resample('AS-OCT').apply(stats.skew)
-    WYDataDF['TQmean']=DataDF.resample('AS-OCT').apply({'Discharge':lambda x: CalcTqmean(x)}) #custom functions (lamada)
+    WYDataDF['Tqmean']=DataDF.resample('AS-OCT').apply({'Discharge':lambda x: CalcTqmean(x)}) #custom functions (lamada)
     WYDataDF['R-B Index']=DataDF['Discharge'].resample('AS-OCT').apply({lambda x: CalcRBindex(x)})
     WYDataDF['7Q']=DataDF['Discharge'].resample('AS-OCT').apply({lambda x: Calc7Q(x)})
     WYDataDF['3xMedian']=DataDF.resample('AS-OCT').apply({'Discharge':lambda x: CalcExceed3TimesMedian(x)})
@@ -137,7 +137,7 @@ def GetMonthlyStatistics(DataDF):
     MoDataDF['Coeff Var'] = (DataDF.resample('MS')['Discharge'].std()/ 
             DataDF.resample('MS')['Discharge'].mean())*100
    
-    MoDataDF['TQmean'] = DataDF.resample('MS').apply({'Discharge': lambda x: #customs functions (lamda))
+    MoDataDF['Tqmean'] = DataDF.resample('MS').apply({'Discharge': lambda x: #customs functions (lamda))
         CalcTqmean(x)})
     
     MoDataDF['R-B Index'] = DataDF.resample('MS').apply({'Discharge': lambda x: 
